@@ -1,11 +1,16 @@
 FBInstant.initializeAsync()
     .then(function() {        
         // Start loading game assets here
-        FBInstant.setLoadingProgress(100);
-        FBInstant.startGameAsync()
-            .then(function() {
-                startPixi()
-            });
+        data.init();
+        data.ws.addEventListener("open", function(){
+            console.log("opened");
+            FBInstant.setLoadingProgress(50);
+            data.startUpdates();
+            FBInstant.startGameAsync()
+                .then(function() {
+                    startPixi();
+                });
+        })
   });
 
 function startPixi(){
