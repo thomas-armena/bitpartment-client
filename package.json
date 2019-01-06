@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thomas-armena/bitpartment-client#readme",
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "snapsvg": "^0.5.1"
   }
 }

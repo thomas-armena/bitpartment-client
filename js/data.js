@@ -1,5 +1,4 @@
 var gameData = function(){
-    this.test = "bandersnatch"
     this.house = {}; 
     this.tenants = [];
     this.actions = [];
@@ -9,23 +8,33 @@ var gameData = function(){
     this.ws = null;
 }
 
-gameData.prototype.init = function(){
-    console.log(this.test);
-    this.ws = new WebSocket("ws://localhost:8000/ws/connect");
-    this.ws.addEventListener("message",function(e){
+gameData.prototype = {
+    init : function(){
+        this.ws = new WebSocket("ws://localhost:8000/ws/connect");
+        this.ws.addEventListener("message",this.updateData.bind(this));
+        console.log("Websocket initialized.");
+    },
+    updateData : function(e){
         var data = JSON.parse(e.data);
-        console.log(data)
-    });
-    console.log("Websocket initialized.");
-}
-gameData.prototype.startUpdates = function(){
-    var tempData = {
-        username: "thomasarmena",
-        houseID: 1,
-    }
-    this.ws.send(JSON.stringify(tempData));
-    console.log("Updates started");
-}
+        this.house = data.House;
+        this.tenants = data.Tenants;
+        this.actions = data.Actions;
+        this.rooms = data.Rooms;
+        this.interval = data.Interval;
+        this.cycle = data.Cycle;
+        console.log(this)
+        bitpartment.draw();
 
+    },
+    startUpdates : function(){
+        var tempData = {
+            username: "thomasarmena",
+            houseID: 1,
+        }
+        this.ws.send(JSON.stringify(tempData));
+        console.log("Updates started");
+
+    },
+}
 
 var data = new gameData()
