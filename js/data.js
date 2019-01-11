@@ -35,6 +35,14 @@ gameData.prototype = {
         console.log("Updates started");
 
     },
+    getRoomById : function(roomid){
+        for(i = 0; i < this.rooms.length; i++){
+            if(this.rooms[i].RoomID == roomid){
+                return this.rooms[i];
+            }
+        }
+        return null;
+    },
 }
 
 var data = new gameData()
