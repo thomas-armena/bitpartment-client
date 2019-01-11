@@ -1,3 +1,10 @@
+data.init();
+data.ws.addEventListener("open",handleWebSocketOpen)
+
+function handleWebSocketOpen(){
+    data.startUpdates();
+}
+/*
 FBInstant.initializeAsync()
     .then(function() {        
         // Start loading game assets here
@@ -11,3 +18,4 @@ FBInstant.initializeAsync()
                 });
         })
   });
+*/

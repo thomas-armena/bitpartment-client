@@ -1,25 +1,72 @@
-var gridSize = 200;
+var gridSize = 100;
 
-var bitpartmentCanvas = function(){
+var drawingStage = function(){
     this.canvas = Snap("#canvas");
     this.wall = this.canvas.rect(0,0,0,0);
+    this.rooms = [];
+    
+    // Positional variables
+
+    // Canvas positions 
+    console.log('test');
+    console.log(this.canvas.node.clientHeight);
+    this.canvasHeight = this.canvas.node.clientHeight;
+    this.canvasX = 0;
+    this.canvasY = this.canvasHeight;
+
+    // Wall positons
+    this.wallX = this.canvasX + 100;
+    this.wallY = this.canvasY + 0;
+    this.wallWidth = gridSize * data.house.Width;
+    this.wallHeight = gridSize * data.house.Height;
 }
 
-bitpartmentCanvas.prototype = {
+drawingStage.prototype = {
     draw : function(){
-        var canvasHeight = this.canvas.node.clientHeight
-        var startY = canvasHeight;
-        var startX = 100;
-        var wallWidth = gridSize * data.house.Width;
-        var wallHeight = gridSize * data.house.Height;
-        console.log(wallHeight)
+        this.wallX = this.canvasX + 100;
+        this.wallY = this.canvasY + 0;
+        this.wallWidth = gridSize * data.house.Width;
+        this.wallHeight = gridSize * data.house.Height;
+        this._drawWall();
+        this._drawRooms();
+        this._drawTenants();
+    },
+    _drawWall : function(){
+        console.log(this)
         this.wall.attr({
-            x:startX,
-            y:startY-wallHeight,
-            width:wallWidth,
-            height:wallHeight,
+            x:this.wallX,
+            y:this.wallY-this.wallHeight,
+            width:this.wallWidth,
+            height:this.wallHeight,
         });
+    },
+    _drawRooms : function(){
+        // TODO: Implement
+
+        //Undraw all the previously drawn rooms
+        this.rooms.forEach(function(room){
+            room.remove();
+        })
+
+        //Draw new rooms
+        this.rooms = [];
+        data.rooms.forEach(function(roomData){
+            newRoom = this.canvas.rect(
+                this.wallX + roomData.X*gridSize,
+                this.wallY - roomData.Y*gridSize - gridSize,
+                gridSize*roomData.Width,
+                gridSize*roomData.Height
+            );
+            newRoom.attr({fill: "#fc0"});
+            this.rooms.push(newRoom);
+
+        }.bind(this));
+    },
+    _drawTenants : function(){
+        // TODO: Implement
+
     }
+
 }
 
-var bitpartment = new bitpartmentCanvas();
+var stage = new drawingStage();

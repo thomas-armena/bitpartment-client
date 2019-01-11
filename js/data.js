@@ -23,7 +23,7 @@ gameData.prototype = {
         this.interval = data.Interval;
         this.cycle = data.Cycle;
         console.log(this)
-        bitpartment.draw();
+        stage.draw();
 
     },
     startUpdates : function(){
