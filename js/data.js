@@ -10,9 +10,10 @@ var gameData = function(){
 
 gameData.prototype = {
     init : function(){
-        this.ws = new WebSocket("ws://localhost:8000/ws/connect");
+        this.ws = new WebSocket("ws://192.168.2.30:8000/ws/connect");
         this.ws.addEventListener("message",this.updateData.bind(this));
         console.log("Websocket initialized.");
+        console.log(this.ws)
     },
     updateData : function(e){
         var data = JSON.parse(e.data);
